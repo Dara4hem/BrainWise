@@ -1,0 +1,68 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/* إعدادات عامة */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #f8f9fa;
+  --text-color: #212529;
+  --button-hover: #0056b3;
+  --gradient-bg: linear-gradient(135deg, #6B73FF, #000DFF);
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+/* جعل الصفحة تأخذ الشاشة بالكامل */
+.login-container {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* تخصيص القسم الأيسر (الخلفية الزرقاء) */
+.login-left {
+  background: var(--gradient-bg);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+
+/* تحسين تصميم كارت تسجيل الدخول */
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  border-radius: 10px;
+}
+
+/* تحسين تصميم الأزرار */
+button {
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: var(--button-hover);
+  transform: scale(1.05);
+}
+
+/* تحسين تصميم الروابط */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+  color: var(--button-hover);
+}
+
+/* جعل التصميم متجاوبًا على الأجهزة الصغيرة */
+@media (max-width: 768px) {
+  .login-left {
+    display: none;
+  }
+}

@@ -7,7 +7,7 @@ router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='user')
 router.register(r'companies', CompanyViewSet, basename='company')
 router.register(r'departments', DepartmentViewSet, basename='department')
-router.register(r'employees', EmployeeViewSet, basename='employee')  # ✅ التأكد من `basename`
+router.register(r'employees', EmployeeViewSet, basename='employee') 
 
 urlpatterns = [
     path('api/', include(router.urls)),

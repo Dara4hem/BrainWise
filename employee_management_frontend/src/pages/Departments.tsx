@@ -13,7 +13,6 @@ const DepartmentsList: React.FC = () => {
     fetchDepartments();
   }, []);
 
-  // ✅ جلب الأقسام من API
   const fetchDepartments = async () => {
     try {
       const token = localStorage.getItem("accessToken");
@@ -33,7 +32,6 @@ const DepartmentsList: React.FC = () => {
     }
   };
 
-  // ✅ حذف القسم
   const handleConfirmDelete = async () => {
     if (deleteDepartmentId !== null) {
       try {
@@ -57,7 +55,6 @@ const DepartmentsList: React.FC = () => {
     <Container className="mt-4">
       <h2 className="mb-4 text-center">Department Management</h2>
 
-      {/* ✅ زر إضافة قسم جديد */}
       <div className="mb-3 text-end">
         <Button variant="primary" onClick={() => navigate("/departments/add")}>
           + Add Department
@@ -81,9 +78,9 @@ const DepartmentsList: React.FC = () => {
               <tr key={dept.id}>
                 <td>{dept.id}</td>
                 <td>{dept.name}</td>
-                <td>{dept.company_name}</td> {/* ✅ عرض اسم الشركة */}
+                <td>{dept.company_name}</td> 
                 <td>
-                  {/* ✅ زر تعديل القسم */}
+              
                   <Button
                     variant="warning"
                     size="sm"
@@ -93,7 +90,6 @@ const DepartmentsList: React.FC = () => {
                     Edit
                   </Button>
 
-                  {/* ✅ زر حذف القسم */}
                   <Button
                     variant="danger"
                     size="sm"
@@ -117,7 +113,6 @@ const DepartmentsList: React.FC = () => {
         </tbody>
       </Table>
 
-      {/* ✅ Modal تأكيد الحذف */}
       <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Confirm Deletion</Modal.Title>

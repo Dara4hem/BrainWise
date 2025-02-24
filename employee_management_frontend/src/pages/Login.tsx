@@ -46,7 +46,7 @@ const Login: React.FC = () => {
       } else if (userData.role === "manager") {
         navigate("/dashboard");
       } else {
-        navigate("/profile"); // ✅ الموظف يتم تحويله لصفحة بياناته فقط
+        navigate("/profile"); 
       }
     } catch (err: any) {
       setError(err.message);
@@ -56,7 +56,6 @@ const Login: React.FC = () => {
 
   return (
     <div className="d-flex vh-100">
-      {/* ✅ Sidebar مثل الـ Dashboard */}
       <div
         className="d-flex flex-column justify-content-center align-items-center"
         style={{
@@ -70,7 +69,6 @@ const Login: React.FC = () => {
         <p>Login to continue managing employees</p>
       </div>
 
-      {/* ✅ Login Form */}
       <Container className="d-flex justify-content-center align-items-center flex-grow-1">
         <Card style={{ width: "400px" }} className="shadow-lg p-4">
           <Card.Body>

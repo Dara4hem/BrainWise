@@ -12,7 +12,6 @@ from rest_framework.response import Response
 
 
 from rest_framework.decorators import action
-# ✅ API لجلب بيانات المستخدم
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_user_data(request):
@@ -25,7 +24,6 @@ def get_user_data(request):
         "company": user.company.name if user.company else "Not assigned"
     })
 
-# ✅ تخصيص التوكن وإضافة معلومات إضافية
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
@@ -59,11 +57,9 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         attrs["username"] = user.username
         return super().validate(attrs)
 
-# ✅ تخصيص View الخاصة بتسجيل الدخول
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
-# ✅ `User ViewSet`
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
@@ -83,7 +79,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 
-# ✅ `Company ViewSet`
 class CompanyViewSet(viewsets.ModelViewSet):
     serializer_class = CompanySerializer
     permission_classes = [IsAuthenticated]
@@ -100,7 +95,6 @@ class CompanyViewSet(viewsets.ModelViewSet):
 
 
 
-# ✅ `Department ViewSet`
 class DepartmentViewSet(viewsets.ModelViewSet):
     serializer_class = DepartmentSerializer
     permission_classes = [IsAuthenticated]
@@ -115,7 +109,6 @@ class DepartmentViewSet(viewsets.ModelViewSet):
         return Department.objects.none()
 
 
-# ✅ `Employee ViewSet`
 class EmployeeViewSet(viewsets.ModelViewSet):
     serializer_class = EmployeeSerializer
     permission_classes = [IsAuthenticated]
@@ -123,12 +116,12 @@ class EmployeeViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         if user.role == 'admin':
-            return Employee.objects.all()  # ✅ Admin يمكنه رؤية الجميع
+            return Employee.objects.all()  
         elif user.role == 'manager':
-            return Employee.objects.filter(company=user.company)  # ✅ Manager يرى موظفي شركته فقط
+            return Employee.objects.filter(company=user.company) 
         elif user.role == 'employee':
-            return Employee.objects.filter(user=user)  # ✅ Employee يرى بياناته فقط
-        return Employee.objects.none() # ❌ منع الوصول للبيانات إن لم يكن لديه صلاحيات
+            return Employee.objects.filter(user=user) 
+        return Employee.objects.none() 
 
 
 

@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Container, Form, Button, Alert, Card } from "react-bootstrap";
 
 const DepartmentForm: React.FC = () => {
-  const { id } = useParams(); // ✅ لاستخدامه عند التعديل
+  const { id } = useParams(); 
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
@@ -16,7 +16,7 @@ const DepartmentForm: React.FC = () => {
     if (id) fetchDepartment();
   }, [id]);
 
-  // ✅ جلب بيانات الشركات لربط القسم بإحداها
+
   const fetchCompanies = async () => {
     try {
       const token = localStorage.getItem("accessToken");
@@ -36,7 +36,6 @@ const DepartmentForm: React.FC = () => {
     }
   };
 
-  // ✅ جلب بيانات القسم في حالة التعديل
   const fetchDepartment = async () => {
     try {
       const token = localStorage.getItem("accessToken");
@@ -57,7 +56,6 @@ const DepartmentForm: React.FC = () => {
     }
   };
 
-  // ✅ حفظ القسم (إضافة أو تعديل)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");

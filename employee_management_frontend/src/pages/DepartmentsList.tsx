@@ -67,7 +67,6 @@ const DepartmentsList: React.FC = () => {
     <Container>
       <h2 className="mb-4 text-center">Departments List</h2>
 
-      {/* ✅ نموذج إضافة قسم (للمدير فقط) */}
       {(userRole === "admin" || userRole === "manager") && (
         <Form className="mb-3 d-flex">
           <Form.Control
@@ -122,7 +121,6 @@ const DepartmentsList: React.FC = () => {
         </tbody>
       </Table>
 
-      {/* ✅ Modal تأكيد الحذف */}
       <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Confirm Deletion</Modal.Title>
@@ -138,7 +136,6 @@ const DepartmentsList: React.FC = () => {
         </Modal.Footer>
       </Modal>
 
-      {/* ✅ Modal نجاح العملية */}
       <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Success</Modal.Title>

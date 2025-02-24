@@ -53,7 +53,7 @@ const CompanyForm: React.FC = () => {
         body: JSON.stringify({ name }),
       });
 
-      setShowSuccessModal(true); // ✅ إظهار النافذة عند النجاح
+      setShowSuccessModal(true);
     } catch (error) {
       console.error("Error saving company:", error);
     }
@@ -61,7 +61,7 @@ const CompanyForm: React.FC = () => {
 
   const handleCloseSuccessModal = () => {
     setShowSuccessModal(false);
-    navigate("/companies"); // ✅ الانتقال إلى قائمة الشركات بعد النجاح
+    navigate("/companies"); 
   };
 
   return (
@@ -84,7 +84,6 @@ const CompanyForm: React.FC = () => {
         </Form>
       </Container>
 
-      {/* ✅ Modal تأكيد الحفظ الناجح */}
       <Modal show={showSuccessModal} onHide={handleCloseSuccessModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>Success</Modal.Title>

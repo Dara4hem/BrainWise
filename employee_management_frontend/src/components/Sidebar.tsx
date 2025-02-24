@@ -5,7 +5,7 @@ import { FaUsers, FaBuilding, FaFolder, FaSignOutAlt } from "react-icons/fa";
 
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();
-  const userRole = localStorage.getItem("userRole"); // ✅ جلب دور المستخدم
+  const userRole = localStorage.getItem("userRole"); 
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
@@ -27,7 +27,6 @@ const Sidebar: React.FC = () => {
           <FaBuilding className="me-2" /> Companies
         </Nav.Link>
 
-        {/* ✅ عرض `Departments` فقط للأدمن والمدير */}
         {(userRole === "admin" || userRole === "manager") && (
           <Nav.Link as={Link} to="/departments" className="text-white mb-2">
             <FaFolder className="me-2" /> Departments

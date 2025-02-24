@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'email', 'role', 'company')
 
 class EmployeeSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)  # ✅ تضمين بيانات المستخدم المرتبطة
+    user = UserSerializer(read_only=True) 
 
     class Meta:
         model = Employee
@@ -33,7 +33,7 @@ class DepartmentSerializer(serializers.ModelSerializer):
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)  # ✅ تضمين بيانات المستخدم المرتبطة
+    user = UserSerializer(read_only=True)  
 
     class Meta:
         model = Employee
@@ -42,13 +42,13 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
 
     def create(self, validated_data):
-        user_id = validated_data.pop('user_id')  # ✅ جلب معرف المستخدم الحالي
+        user_id = validated_data.pop('user_id')
         try:
             user = User.objects.get(id=user_id)
         except User.DoesNotExist:
             raise serializers.ValidationError({"user_id": "User not found."})
 
-        if user.role != 'employee':  # ✅ التأكد من أن المستخدم هو موظف فقط
+        if user.role != 'employee': 
             raise serializers.ValidationError({"user_id": "User must have an 'employee' role."})
 
         employee = Employee.objects.create(user=user, **validated_data)

@@ -17,7 +17,6 @@ const CompaniesList: React.FC = () => {
     fetchCompanies();
   }, []);
 
-  // ✅ جلب بيانات الشركات
   const fetchCompanies = async () => {
     setLoading(true);
     try {
@@ -42,7 +41,6 @@ const CompaniesList: React.FC = () => {
     }
   };
 
-  // ✅ إضافة أو تحديث شركة
   const handleAddOrUpdateCompany = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!["admin", "manager"].includes(userRole || "")) {
@@ -76,7 +74,6 @@ const CompaniesList: React.FC = () => {
     }
   };
 
-  // ✅ تأكيد الحذف
   const handleConfirmDelete = async () => {
     if (deleteCompanyId !== null) {
       if (!["admin", "manager"].includes(userRole || "")) {
@@ -106,17 +103,14 @@ const CompaniesList: React.FC = () => {
     <Container>
       <h2 className="mb-4 text-center">Companies List</h2>
 
-      {/* ✅ عرض خطأ عند الفشل */}
       {error && <Alert variant="danger">{error}</Alert>}
 
-      {/* ✅ زر إضافة شركة */}
       {["admin", "manager"].includes(userRole || "") && (
         <Button className="mb-3" onClick={() => setShowModal(true)}>
           + Add Company
         </Button>
       )}
 
-      {/* ✅ عرض الـ Loader أثناء تحميل البيانات */}
       {loading ? (
         <div className="text-center">
           <Spinner animation="border" role="status">
@@ -176,7 +170,6 @@ const CompaniesList: React.FC = () => {
         </Table>
       )}
 
-      {/* ✅ Modal لإضافة أو تعديل شركة */}
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>{editCompanyId ? "Edit Company" : "Add Company"}</Modal.Title>
@@ -199,7 +192,6 @@ const CompaniesList: React.FC = () => {
         </Modal.Body>
       </Modal>
 
-      {/* ✅ Modal تأكيد الحذف */}
       <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Confirm Deletion</Modal.Title>
@@ -215,7 +207,6 @@ const CompaniesList: React.FC = () => {
         </Modal.Footer>
       </Modal>
 
-      {/* ✅ Modal نجاح العملية */}
       <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Success</Modal.Title>

@@ -26,7 +26,7 @@ const Dashboard: React.FC = () => {
       }
 
       const data = await response.json();
-      console.log("Employees Data:", data); // ✅ فحص البيانات القادمة من الـ API
+      console.log("Employees Data:", data); 
       setEmployees(data);
     } catch (error) {
       setError("Error fetching employees.");
@@ -53,10 +53,8 @@ const Dashboard: React.FC = () => {
                 <Card.Body>
                   <h3 className="mb-4 text-center">Employees List</h3>
 
-                  {/* ✅ عرض خطأ عند الفشل */}
                   {error && <Alert variant="danger">{error}</Alert>}
 
-                  {/* ✅ تحسين طريقة عرض اللودينج */}
                   {loading ? (
                     <p className="text-center text-muted">Loading employees...</p>
                   ) : employees.length > 0 ? (

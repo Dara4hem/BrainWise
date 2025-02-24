@@ -1,14 +1,12 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# ✅ 1. نموذج الشركات (Company Model)
 class Company(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
     def __str__(self):
         return self.name
 
-# ✅ 2. نموذج المستخدم (User Model)
 class User(AbstractUser):
     ROLE_CHOICES = [
         ('admin', 'Admin'),
@@ -21,7 +19,6 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
-# ✅ 3. نموذج الأقسام (Department Model)
 class Department(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name="departments")
     name = models.CharField(max_length=255)
@@ -29,7 +26,6 @@ class Department(models.Model):
     def __str__(self):
         return f"{self.name} - {self.company.name}"
 
-# ✅ 4. نموذج الموظفين (Employee Model)
 class Employee(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending'),

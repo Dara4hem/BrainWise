@@ -53,16 +53,24 @@ print("DEBUG: First 200 chars of DOC_BACKEND:", DOC_BACKEND[:200])
 print("DEBUG: Length of DOC_FRONTEND:", len(DOC_FRONTEND))
 print("DEBUG: First 200 chars of DOC_FRONTEND:", DOC_FRONTEND[:200])
 
-def fetch_readme_from_github():
+def fetch_readme_from_local():
+    """
+    Reads README.md from the local BrainWise folder.
+    Assumes the structure:
+    D:\2025\BrainWise\employee_management\backend\api\chat.py
+    D:\2025\BrainWise\README.md
+    """
     try:
-        url = "https://raw.githubusercontent.com/Dara4hem/BrainWise/main/README.md"
-        response = requests.get(url)
-        response.raise_for_status()
-        return response.text
-    except requests.exceptions.RequestException as e:
-        return f"❌ ERROR: Could not fetch README.md from GitHub. Details: {e}"
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        # Go up three levels: from api -> backend -> employee_management -> BrainWise
+        readme_path = os.path.join(current_dir, '..', '..', '..', 'README.md')
+        readme_path = os.path.normpath(readme_path)  # Clean up the path
 
-README_CONTENT = fetch_readme_from_github()
+        with open(readme_path, 'r', encoding='utf-8') as f:
+            return f.read()
+    except Exception as e:
+        return f"❌ ERROR: Could not fetch README.md locally. Details: {e}"
+README_CONTENT = fetch_readme_from_local()
 
 # def fetch_file_from_github(file_path):
 #     url = f"{GITHUB_API_BASE}/{file_path}"

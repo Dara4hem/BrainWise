@@ -6,9 +6,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# GITHUB_REPO = "Dara4hem/BrainWise"
-# GITHUB_API_BASE =""
-# GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN", )
+GITHUB_REPO = "Dara4hem/BrainWise"
+GITHUB_API_BASE = f"https://api.github.com/repos/{GITHUB_REPO}/contents"
+GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN", "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")
 
 MISTRAL_API_KEY = "Xn6Q7lyZ80S5LHGb9Wojma1OH9XHmXki"
 MISTRAL_ENDPOINT = "https://api.mistral.ai/v1/chat/completions"
@@ -53,43 +53,35 @@ print("DEBUG: First 200 chars of DOC_BACKEND:", DOC_BACKEND[:200])
 print("DEBUG: Length of DOC_FRONTEND:", len(DOC_FRONTEND))
 print("DEBUG: First 200 chars of DOC_FRONTEND:", DOC_FRONTEND[:200])
 
-def fetch_readme_from_local():
-    """
-    Reads README.md from the local BrainWise folder.
-    Assumes the structure:
-    D:\2025\BrainWise\employee_management\backend\api\chat.py
-    D:\2025\BrainWise\README.md
-    """
+def fetch_readme_from_github():
     try:
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        # Go up three levels: from api -> backend -> employee_management -> BrainWise
-        readme_path = os.path.join(current_dir, '..', '..', '..', 'README.md')
-        readme_path = os.path.normpath(readme_path)  # Clean up the path
+        url = "https://raw.githubusercontent.com/Dara4hem/BrainWise/main/README.md"
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.text
+    except requests.exceptions.RequestException as e:
+        return f"❌ ERROR: Could not fetch README.md from GitHub. Details: {e}"
 
-        with open(readme_path, 'r', encoding='utf-8') as f:
-            return f.read()
-    except Exception as e:
-        return f"❌ ERROR: Could not fetch README.md locally. Details: {e}"
-README_CONTENT = fetch_readme_from_local()
+README_CONTENT = fetch_readme_from_github()
 
-# def fetch_file_from_github(file_path):
-#     url = f"{GITHUB_API_BASE}/{file_path}"
-#     headers = {"Authorization": f"token {GITHUB_ACCESS_TOKEN}"}
-#     try:
-#         response = requests.get(url, headers=headers)
-#         if response.status_code == 401:
-#             return "❌ ERROR: Unauthorized. Check your GitHub Access Token."
-#         elif response.status_code == 404:
-#             return "❌ ERROR: File not found."
-#         response.raise_for_status()
-#         data = response.json()
-#         if "download_url" in data:
-#             file_content = requests.get(data["download_url"]).text
-#             return file_content
-#         else:
-#             return "❌ ERROR: No download URL found."
-#     except requests.exceptions.RequestException as e:
-#         return f"❌ ERROR: Could not fetch the file from GitHub. Details: {e}"
+def fetch_file_from_github(file_path):
+    url = f"{GITHUB_API_BASE}/{file_path}"
+    headers = {"Authorization": f"token {GITHUB_ACCESS_TOKEN}"}
+    try:
+        response = requests.get(url, headers=headers)
+        if response.status_code == 401:
+            return "❌ ERROR: Unauthorized. Check your GitHub Access Token."
+        elif response.status_code == 404:
+            return "❌ ERROR: File not found."
+        response.raise_for_status()
+        data = response.json()
+        if "download_url" in data:
+            file_content = requests.get(data["download_url"]).text
+            return file_content
+        else:
+            return "❌ ERROR: No download URL found."
+    except requests.exceptions.RequestException as e:
+        return f"❌ ERROR: Could not fetch the file from GitHub. Details: {e}"
 
 def extract_relevant_code(full_code, query):
     query_keywords = {
@@ -172,12 +164,12 @@ def chatbot(query):
         else:
             related_code_file = None
 
-        # if related_code_file:
-        #     full_code = fetch_file_from_github(related_code_file)
-        #     if "❌ ERROR" in full_code:
-        #         return full_code
-            # relevant_code = extract_relevant_code(full_code, query.lower())
-            # return f"📜 **الكود ذو الصلة بـ `{query}`:**\n\n```python\n{relevant_code}\n```"
+        if related_code_file:
+            full_code = fetch_file_from_github(related_code_file)
+            if "❌ ERROR" in full_code:
+                return full_code
+            relevant_code = extract_relevant_code(full_code, query.lower())
+            return f"📜 **الكود ذو الصلة بـ `{query}`:**\n\n```python\n{relevant_code}\n```"
 
     # 3) Otherwise, fallback to Mistral AI with README
     return query_mistral_ai(query, language)

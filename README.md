@@ -1,179 +1,185 @@
 # Employee Management System
 
-## 📌 Overview
-
-The **Employee Management System** is a full-stack web application designed to streamline employee management within organizations. It provides role-based access to administrators, managers, and employees, allowing them to manage companies, departments, and employee records efficiently. The project includes a **frontend (React)** and a **backend (Django REST Framework)** with JWT authentication.
-
-## 📅 Project Timeline
-
-- **Day 1**: Backend development (Django, API setup, database design).
-- **Day 2**: Frontend development (React, UI components, API integration).
-- **Day 3**: Final refinements, chatbot integration, and documentation.
+This **Employee Management System** is a comprehensive full-stack web application that streamlines employee management within organizations. It supports **role-based access** (Admin, Manager, Employee), **CRUD** operations for Companies, Departments, and Employees, and includes an **AI-powered Chatbot** for quick project queries. Below you will find all the details about the system’s architecture, bonus features, and a day-by-day timeline of its development.
 
 ---
 
-## 🖥️ Backend (Django)
+## Table of Contents
 
-### 🔹 Technologies Used
-
-- **Django** (REST Framework)
-- **SQLite3** (Database)
-- **JWT Authentication** (Secure login)
-- **Django Admin Panel**
-
-### 🔹 Features Implemented
-
-✅ **User Authentication & Role-Based Access**
-
-- Admins: Full control over the system.
-- Managers: Can manage employees and departments in their assigned companies.
-- Employees: Can view their own profile but cannot edit other data.
-
-✅ **Company & Department Management**
-
-- Admins can create, edit, and delete companies.
-- Managers can create and manage departments in their assigned company.
-
-✅ **Employee Management**
-
-- Managers can hire and assign employees to departments.
-- Employees can view their own details but cannot modify them.
-
-✅ **Secure API Endpoints**
-
-- Implemented token-based authentication using JWT.
-- Restricted access to different endpoints based on user roles.
-
-✅ **GitHub Chatbot Integration**
-
-- Users can ask questions about the project.
-- The bot first checks **README.md** for answers.
-- If more details are needed, it fetches information from the GitHub repository.
-
-### 🔹 API Endpoints
-
-| Method | Endpoint            | Description                        |
-| ------ | ------------------- | ---------------------------------- |
-| `POST` | `/api/token/`       | Obtain JWT token                   |
-| `GET`  | `/api/users/`       | List all users (admin only)        |
-| `GET`  | `/api/employees/`   | List employees (based on role)     |
-| `POST` | `/api/employees/`   | Add a new employee (manager only)  |
-| `GET`  | `/api/companies/`   | View companies (admin & manager)   |
-| `GET`  | `/api/departments/` | View departments (admin & manager) |
-| `POST` | `/api/departments/` | Create department (manager only)   |
+1. [Project Timeline](#project-timeline)  
+2. [Backend (Django)](#backend-django)  
+3. [Frontend (React)](#frontend-react)  
+4. [Documentation & Chatbot Integration](#documentation--chatbot-integration)  
+5. [Testing & Workflow](#testing--workflow)  
+6. [Role-Based Access Control](#role-based-access-control)  
+7. [How to Run](#how-to-run)  
+8. [Day-by-Day Development](#day-by-day-development)  
+9. [Conclusion](#conclusion)  
 
 ---
 
-## 🎨 Frontend (React)
+## Project Timeline
 
-### 🔹 Technologies Used
-
-- **React.js**
-- **Bootstrap** (UI Styling)
-- **React Router** (Navigation)
-- **JWT Authentication Handling**
-
-### 🔹 Features Implemented
-
-✅ **Login & Authentication**
-
-- Users log in using email or username.
-- JWT token is stored securely.
-
-✅ **Dashboard with Role-Based UI**
-
-- Admin: Can see all data.
-- Manager: Can view and manage assigned employees and departments.
-- Employee: Can view personal details only.
-
-✅ **CRUD Operations**
-
-- Managers can add/edit/delete employees within their company.
-- Admins can manage companies and assign managers.
-
-✅ **Chatbot Integration**
-
-- Allows users to ask questions about the project.
-- Retrieves answers from **README.md** first, then GitHub if needed.
+1. **Day 1**: Built the **backend** with Django REST Framework (DRF).  
+2. **Day 2**: Created the **frontend** using React (with React Router and Bootstrap).  
+3. **Day 3**: Implemented **bonus features** such as Chatbot integration (with local docs and GitHub code fetching) and an Employee status workflow.  
+4. **Day 4**: **Refinements**: improved UI, tested endpoints, finalized documentation, and prepared for deployment.
 
 ---
 
-## 🚀 How to Run the Project
+## Backend (Django)
 
-### 🔹 Backend Setup
+### Overview
 
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/Dara4hem/BrainWise.git
-   cd BrainWise/employee_management
-   ```
-2. Create and activate a virtual environment:
-   ```sh
-   python -m venv venv
-   source venv/bin/activate  # On Windows use: venv\Scripts\activate
-   ```
-3. Install dependencies:
-   ```sh
-   pip install -r requirements.txt
-   ```
-4. Apply migrations and run the server:
-   ```sh
-   python manage.py migrate
-   python manage.py runserver
-   ```
+- **Framework**: Django REST Framework  
+- **Authentication**: JWT-based, using `rest_framework_simplejwt`  
+- **Database**: SQLite by default (can switch to PostgreSQL)  
+- **Core App**: `api`, containing models, serializers, views, permissions, and tests
 
-### 🔹 Frontend Setup
+### File Structure
 
-1. Navigate to the frontend directory:
-   ```sh
-   cd ../employee_management_frontend
-   ```
-2. Install dependencies:
-   ```sh
-   npm install
-   ```
-3. Start the frontend:
-   ```sh
-   npm run dev
-   ```
+```
+backend/
+├── manage.py
+├── backend/
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   └── asgi.py
+└── api/
+    ├── admin.py
+    ├── apps.py
+    ├── chat.py
+    ├── documentation/
+    │   ├── backend.pdf
+    │   └── frontend.pdf
+    ├── models.py
+    ├── permissions.py
+    ├── serializers.py
+    ├── tests.py
+    ├── urls.py
+    └── views.py
+```
 
----
+### Key Backend Features
 
-## 🔹 Chatbot Feature (Smart Documentation Assistant)
-
-✅ **How it Works**
-
-- Users ask questions about the project.
-- The chatbot first searches **README.md** locally.
-- If more details are needed, it fetches from GitHub.
-- The response is generated using **Mistral AI** for natural language processing.
-
-✅ **Example Questions**
-
-- "How did Mustafa implement employee management?"
-- "What authentication method is used?"
-- "Can managers add companies?"
-
-✅ **Expanding Chatbot Functionality**
-
-- Future updates may include searching through project source code for advanced queries.
+- **JWT Authentication** for secure access
+- **Custom Role-Based Permissions** for Admins, Managers, and Employees
+- **AI Chatbot Integration** with local docs and GitHub code fetching
+- **Comprehensive API** with DRF ViewSets and role-based filtering
+- **Employee Workflow** with status transitions
 
 ---
 
-## 🔮 Future Improvements
+## Frontend (React)
 
-- **Enhancing Chatbot**: Adding NLP processing for better query understanding.
-- **User-Friendly UI**: Improving styling and animations.
-- **Database Optimization**: Shifting to PostgreSQL for better scalability.
-- **Role-Based Permissions**: Adding finer-grained permission controls.
+### Overview
+
+- **Framework**: React with TypeScript  
+- **Routing**: React Router for page-based navigation  
+- **Styling**: Bootstrap for quick UI and custom CSS  
+- **Authentication**: Stores JWT in `localStorage`; uses PrivateRoute to guard routes
+
+### File Structure
+
+```
+employee_management_frontend/
+├── src/
+│   ├── components/
+│   │   └── ChatWidget.tsx
+│   ├── pages/
+│   │   ├── Login.tsx
+│   │   ├── Dashboard.tsx
+│   │   ├── EmployeesList.tsx
+│   │   ├── CompaniesList.tsx
+│   │   ├── ...
+│   ├── routes.tsx
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css
+└── package.json
+```
+
+### Key Frontend Features
+
+- **User-Friendly Dashboard** with role-based navigation
+- **JWT Authentication & Protected Routes**
+- **Chatbot Widget** for instant project assistance
+- **Responsive Design** using Bootstrap
 
 ---
 
-## 👨‍💻 Developer: Mustafa Darahem
+## Documentation & Chatbot Integration
 
-For any inquiries, contact me at: mostafasamirdarahem@gmail.com
+- **Local Docs**: `backend.pdf` and `frontend.pdf` for quick access to documentation.
+- **GitHub README Fetching**: Pulls documentation dynamically.
+- **Code Fetching**: Extracts relevant code snippets based on user queries.
 
 ---
 
-This project was designed to demonstrate my ability to create a full-stack system with **efficient authentication, user roles, and a chatbot assistant.** 🚀🔥
+## Testing & Workflow
 
+1. **Unit & Integration Tests** for API endpoints and business logic.
+2. **Employee Status Workflow** ensures valid transitions (e.g., `pending → hired`).
+
+---
+
+## Role-Based Access Control
+
+| Role     | Access |
+|----------|--------|
+| **Admin**  | Full access to companies, employees, and departments |
+| **Manager**  | Manages their company’s employees and departments |
+| **Employee**  | Can view only their own profile |
+
+---
+
+## How to Run
+
+### Backend
+
+```bash
+git clone https://github.com/Dara4hem/BrainWise.git
+cd BrainWise/employee_management
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+### Frontend
+
+```bash
+cd ../employee_management_frontend
+npm install
+npm run dev
+```
+
+Visit: `http://127.0.0.1:5173`
+
+---
+
+## Day-by-Day Development
+
+| Day | Task |
+|-----|------|
+| **1** | Backend setup, models, and API endpoints |
+| **2** | Frontend setup, authentication, and UI components |
+| **3** | Bonus features: Chatbot, GitHub fetching, workflow tests |
+| **4** | UI enhancements, final testing, documentation |
+
+---
+
+## Conclusion
+
+This project demonstrates:
+
+✅ **Full-stack architecture** with Django & React  
+✅ **JWT authentication** with role-based permissions  
+✅ **AI-powered Chatbot** for documentation and code retrieval  
+✅ **Employee workflow management**  
+✅ **Comprehensive test coverage**  
+
+**Developer**: Mustafa Darahem  
+**Email**: mostafasamirdarahem@gmail.com

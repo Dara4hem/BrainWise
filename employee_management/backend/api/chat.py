@@ -6,9 +6,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-GITHUB_REPO = "Dara4hem/BrainWise"
-GITHUB_API_BASE =""
-GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN", )
+# GITHUB_REPO = "Dara4hem/BrainWise"
+# GITHUB_API_BASE =""
+# GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN", )
 
 MISTRAL_API_KEY = "Xn6Q7lyZ80S5LHGb9Wojma1OH9XHmXki"
 MISTRAL_ENDPOINT = "https://api.mistral.ai/v1/chat/completions"
@@ -64,24 +64,24 @@ def fetch_readme_from_github():
 
 README_CONTENT = fetch_readme_from_github()
 
-def fetch_file_from_github(file_path):
-    url = f"{GITHUB_API_BASE}/{file_path}"
-    headers = {"Authorization": f"token {GITHUB_ACCESS_TOKEN}"}
-    try:
-        response = requests.get(url, headers=headers)
-        if response.status_code == 401:
-            return "❌ ERROR: Unauthorized. Check your GitHub Access Token."
-        elif response.status_code == 404:
-            return "❌ ERROR: File not found."
-        response.raise_for_status()
-        data = response.json()
-        if "download_url" in data:
-            file_content = requests.get(data["download_url"]).text
-            return file_content
-        else:
-            return "❌ ERROR: No download URL found."
-    except requests.exceptions.RequestException as e:
-        return f"❌ ERROR: Could not fetch the file from GitHub. Details: {e}"
+# def fetch_file_from_github(file_path):
+#     url = f"{GITHUB_API_BASE}/{file_path}"
+#     headers = {"Authorization": f"token {GITHUB_ACCESS_TOKEN}"}
+#     try:
+#         response = requests.get(url, headers=headers)
+#         if response.status_code == 401:
+#             return "❌ ERROR: Unauthorized. Check your GitHub Access Token."
+#         elif response.status_code == 404:
+#             return "❌ ERROR: File not found."
+#         response.raise_for_status()
+#         data = response.json()
+#         if "download_url" in data:
+#             file_content = requests.get(data["download_url"]).text
+#             return file_content
+#         else:
+#             return "❌ ERROR: No download URL found."
+#     except requests.exceptions.RequestException as e:
+#         return f"❌ ERROR: Could not fetch the file from GitHub. Details: {e}"
 
 def extract_relevant_code(full_code, query):
     query_keywords = {
@@ -164,12 +164,12 @@ def chatbot(query):
         else:
             related_code_file = None
 
-        if related_code_file:
-            full_code = fetch_file_from_github(related_code_file)
-            if "❌ ERROR" in full_code:
-                return full_code
-            relevant_code = extract_relevant_code(full_code, query.lower())
-            return f"📜 **الكود ذو الصلة بـ `{query}`:**\n\n```python\n{relevant_code}\n```"
+        # if related_code_file:
+        #     full_code = fetch_file_from_github(related_code_file)
+        #     if "❌ ERROR" in full_code:
+        #         return full_code
+            # relevant_code = extract_relevant_code(full_code, query.lower())
+            # return f"📜 **الكود ذو الصلة بـ `{query}`:**\n\n```python\n{relevant_code}\n```"
 
     # 3) Otherwise, fallback to Mistral AI with README
     return query_mistral_ai(query, language)

@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 GITHUB_REPO = "Dara4hem/BrainWise"
-GITHUB_API_BASE = f"https://api.github.com/repos/{GITHUB_REPO}/contents"
+GITHUB_API_BASE =""
 GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN", )
 
 MISTRAL_API_KEY = "Xn6Q7lyZ80S5LHGb9Wojma1OH9XHmXki"

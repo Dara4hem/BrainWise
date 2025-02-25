@@ -8,7 +8,7 @@ load_dotenv()
 
 GITHUB_REPO = "Dara4hem/BrainWise"
 GITHUB_API_BASE = f"https://api.github.com/repos/{GITHUB_REPO}/contents"
-GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN", "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")
+GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN", )
 
 MISTRAL_API_KEY = "Xn6Q7lyZ80S5LHGb9Wojma1OH9XHmXki"
 MISTRAL_ENDPOINT = "https://api.mistral.ai/v1/chat/completions"

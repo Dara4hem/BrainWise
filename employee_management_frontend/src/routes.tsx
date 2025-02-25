@@ -7,6 +7,7 @@ import CompanyForm from "./pages/CompanyForm";
 import Departments from "./pages/Departments";
 import DepartmentForm from "./pages/DepartmentForm";
 import Profile from "./pages/Profile";
+import NotFound from "./pages/NotFound"; // New NotFound component
 import { JSX } from "react";
 
 const PrivateRoute = ({ element }: { element: JSX.Element }) => {
@@ -32,6 +33,8 @@ const AppRoutes = () => {
         <Route path="/departments" element={<PrivateRoute element={<Departments />} />} />
         <Route path="/departments/add" element={<PrivateRoute element={<DepartmentForm />} />} />
         <Route path="/departments/edit/:id" element={<PrivateRoute element={<DepartmentForm />} />} />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

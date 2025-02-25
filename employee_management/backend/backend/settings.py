@@ -16,7 +16,6 @@ from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -43,8 +42,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',  
     'api',  
 ]
-
-
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware', 
@@ -118,6 +115,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_CREDENTIALS = True
@@ -146,11 +144,40 @@ REST_FRAMEWORK = {
     ),
 }
 
-
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=1), 
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),  
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
+# Logging configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        # Uncomment the following handler to log to a file:
+        # 'file': {
+        #     'class': 'logging.FileHandler',
+        #     'filename': BASE_DIR / 'logs/app.log',
+        #     'formatter': 'verbose',
+        # },
+    },
+    'loggers': {
+        '': {  # Root logger
+            'handlers': ['console'],  # Add 'file' here if file logging is enabled
+            'level': 'INFO',
+        },
+    },
 }

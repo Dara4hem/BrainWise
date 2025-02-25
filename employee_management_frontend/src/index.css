@@ -1,42 +1,100 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
+/* 
+  DARK MODE OVERRIDES 
+  لما يبقى في body.dark، هنعدل ألوان الخلفية والنصوص 
+*/
+body.dark {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark a {
+  color: #ffffff;
+}
+
+/* تخصيص الكروت والنافبار في الدارك مود */
+body.dark .card {
+  background-color: #1f1f1f;
+  color: #ffffff;
+}
+
+body.dark .navbar,
+body.dark .navbar-light {
+  background-color: #2c2c2c !important;
+  color: #ffffff !important;
+}
+
+body.dark .navbar .navbar-brand {
+  color: #ffffff !important;
+}
+
+/* 
+  GLOBAL VARIABLES 
+*/
 :root {
   --primary-color: #007bff;
   --secondary-color: #f8f9fa;
   --text-color: #212529;
   --button-hover: #0056b3;
   --gradient-bg: linear-gradient(135deg, #6B73FF, #000DFF);
-  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --border-radius: 8px;
+  --transition-duration: 0.3s;
 }
 
+/* GLOBAL STYLES */
+body {
+  font-family: var(--font-family);
+  color: var(--text-color);
+  background-color: var(--secondary-color);
+  margin: 0;
+  padding: 0;
+  transition: background-color var(--transition-duration) ease-in-out,
+    color var(--transition-duration) ease-in-out;
+}
+
+/* SIDEBAR CUSTOM CLASS */
+.sidebar-container {
+  transition: background-color var(--transition-duration) ease-in-out;
+}
+
+/* LOGIN PAGE CONTAINER */
 .login-container {
+  display: flex;
   height: 100vh;
   width: 100%;
   overflow: hidden;
 }
 
+/* LEFT SECTION WITH GRADIENT BACKGROUND */
 .login-left {
+  flex: 1;
   background: var(--gradient-bg);
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  height: 100%;
+  padding: 2rem;
 }
 
+/* LOGIN CARD STYLING */
 .login-card {
   width: 100%;
   max-width: 400px;
   background: white;
-  border-radius: 10px;
+  border-radius: calc(var(--border-radius) + 2px);
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* BUTTON STYLES */
 button {
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   font-size: 1em;
   font-weight: 500;
-  transition: all 0.3s ease-in-out;
+  transition: all var(--transition-duration) ease-in-out;
 }
 
 button:hover {
@@ -44,16 +102,18 @@ button:hover {
   transform: scale(1.05);
 }
 
+/* ANCHOR STYLES */
 a {
   color: var(--primary-color);
   text-decoration: none;
-  transition: color 0.3s ease-in-out;
+  transition: color var(--transition-duration) ease-in-out;
 }
 
 a:hover {
   color: var(--button-hover);
 }
 
+/* RESPONSIVE ADJUSTMENTS */
 @media (max-width: 768px) {
   .login-left {
     display: none;

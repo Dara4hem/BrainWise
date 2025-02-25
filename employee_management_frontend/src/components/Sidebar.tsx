@@ -1,11 +1,22 @@
 import React from "react";
 import { Nav, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { FaUsers, FaBuilding, FaFolder, FaSignOutAlt } from "react-icons/fa";
+import {
+  FaUsers,
+  FaBuilding,
+  FaFolder,
+  FaSignOutAlt,
+  FaMoon,
+  FaSun,
+} from "react-icons/fa";
+import { useTheme } from "../context/ThemeContext"; // <-- لاستدعاء الثيم
 
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();
-  const userRole = localStorage.getItem("userRole"); 
+  const userRole = localStorage.getItem("userRole");
+
+  // استخدمنا useTheme علشان نقدر نجيب الثيم الحالي (theme) ودالة التبديل (toggleTheme)
+  const { theme, toggleTheme } = useTheme();
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
@@ -15,7 +26,13 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <div className="d-flex flex-column vh-100 bg-dark text-white p-3" style={{ width: "250px" }}>
+    <div
+      // لو الثيم "dark" هنعطيها خلفية أفتح شوية، ولو "light" هتكون bg-dark
+      className={`d-flex flex-column vh-100 text-white p-3 sidebar-container ${
+        theme === "dark" ? "bg-secondary" : "bg-dark"
+      }`}
+      style={{ width: "250px" }}
+    >
       <h4 className="mb-4 text-center">⚡ Admin Panel</h4>
 
       <Nav className="flex-column">
@@ -33,6 +50,16 @@ const Sidebar: React.FC = () => {
           </Nav.Link>
         )}
       </Nav>
+
+      {/* زر للتبديل بين الـ Light/Dark */}
+      <Button
+        variant="outline-light"
+        className="mt-3"
+        onClick={toggleTheme}
+      >
+        {theme === "light" ? <FaMoon /> : <FaSun />}{" "}
+        {theme === "light" ? "Dark Mode" : "Light Mode"}
+      </Button>
 
       <Button variant="danger" className="mt-auto w-100" onClick={handleLogout}>
         <FaSignOutAlt className="me-2" /> Logout

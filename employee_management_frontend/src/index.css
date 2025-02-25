@@ -2,7 +2,6 @@
 
 /* 
   DARK MODE OVERRIDES 
-  لما يبقى في body.dark، هنعدل ألوان الخلفية والنصوص 
 */
 body.dark {
   background-color: #121212;
@@ -13,7 +12,6 @@ body.dark a {
   color: #ffffff;
 }
 
-/* تخصيص الكروت والنافبار في الدارك مود */
 body.dark .card {
   background-color: #1f1f1f;
   color: #ffffff;

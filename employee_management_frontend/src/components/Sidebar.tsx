@@ -9,13 +9,12 @@ import {
   FaMoon,
   FaSun,
 } from "react-icons/fa";
-import { useTheme } from "../context/ThemeContext"; // <-- لاستدعاء الثيم
+import { useTheme } from "../context/ThemeContext"; 
 
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const userRole = localStorage.getItem("userRole");
 
-  // استخدمنا useTheme علشان نقدر نجيب الثيم الحالي (theme) ودالة التبديل (toggleTheme)
   const { theme, toggleTheme } = useTheme();
 
   const handleLogout = () => {
@@ -27,7 +26,6 @@ const Sidebar: React.FC = () => {
 
   return (
     <div
-      // لو الثيم "dark" هنعطيها خلفية أفتح شوية، ولو "light" هتكون bg-dark
       className={`d-flex flex-column vh-100 text-white p-3 sidebar-container ${
         theme === "dark" ? "bg-secondary" : "bg-dark"
       }`}
@@ -51,7 +49,6 @@ const Sidebar: React.FC = () => {
         )}
       </Nav>
 
-      {/* زر للتبديل بين الـ Light/Dark */}
       <Button
         variant="outline-light"
         className="mt-3"

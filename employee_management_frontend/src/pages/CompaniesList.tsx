@@ -160,7 +160,7 @@ const CompaniesList: React.FC = () => {
 
         {error && <Alert variant="danger">{error}</Alert>}
 
-        {/* شريط البحث عن الشركة بالاسم */}
+        {/*  البحث عن الشركة بالاسم */}
         <SearchBar
           placeholder="Search companies by name..."
           onSearch={handleSearch}

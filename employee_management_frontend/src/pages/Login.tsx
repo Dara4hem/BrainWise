@@ -38,7 +38,6 @@ const Login: React.FC = () => {
       localStorage.setItem("accessToken", data.access);
       localStorage.setItem("refreshToken", data.refresh);
 
-      // جلب بيانات المستخدم لتحديد الـ role
       const userResponse = await fetch("http://127.0.0.1:8000/api/user/", {
         headers: {
           Authorization: `Bearer ${data.access}`,
@@ -48,7 +47,7 @@ const Login: React.FC = () => {
       const userData = await userResponse.json();
       localStorage.setItem("userRole", userData.role);
 
-      // إشعار بالنجاح
+      // إشعار 
       addNotification("Logged in successfully!", "success");
 
       // توجيه حسب الدور
@@ -86,7 +85,6 @@ const Login: React.FC = () => {
             <Card.Body>
               <h2 className="text-center mb-4">Login</h2>
 
-              {/* عرض رسالة الخطأ إن وجدت */}
               {error && <Alert variant="danger">{error}</Alert>}
 
               <Form onSubmit={handleLogin}>
@@ -109,7 +107,7 @@ const Login: React.FC = () => {
                   />
                 </Form.Group>
 
-                {/* زر تسجيل الدخول أو سبينر أثناء التحميل */}
+         
                 <Button variant="primary" type="submit" className="w-100" disabled={loading}>
                   {loading ? (
                     <>

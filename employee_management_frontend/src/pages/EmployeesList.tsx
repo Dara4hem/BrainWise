@@ -45,7 +45,7 @@ const EmployeesList: React.FC = () => {
 
       const data = await response.json();
       setEmployees(data);
-      setFilteredEmployees(data); // نسخة لعملية البحث
+      setFilteredEmployees(data); 
       addNotification("Employees loaded successfully!", "success");
     } catch (err: any) {
       setError(err.message || "Error fetching employees");
@@ -87,7 +87,7 @@ const EmployeesList: React.FC = () => {
         }
 
         setShowDeleteModal(false);
-        fetchEmployees(); // إعادة الجلب لتحديث القائمة
+        fetchEmployees(); 
         setShowSuccessModal(true);
         addNotification("Employee deleted successfully!", "success");
       } catch (err: any) {
